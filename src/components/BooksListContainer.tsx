@@ -53,7 +53,23 @@ export const BooksListContainer = ({ bookList }: BooksListContainerParams) => {
   return (
     <>
       <DialogDelete id={id} openDialog={openDialog} setOpenDialog={setOpenDialog} />
-      <Button onClick={handleSummary}>{textButton}</Button>
+
+      <Button 
+        onClick={handleSummary}
+        variant="contained"
+        color="success"
+        sx={{m: 2}}
+      >
+        {textButton}
+      </Button>
+      <Button 
+        onClick={()=> router.push('/create') }
+        variant="contained"
+        color="success"
+        sx={{m: 2}}
+      >
+        Añadir Libro
+      </Button>
       {
         showSummaryList && summaryList.map((title, index) => (
           <p key={index}>{title}</p>
@@ -65,10 +81,22 @@ export const BooksListContainer = ({ bookList }: BooksListContainerParams) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Titulo</TableCell>
-              <TableCell align="right">Autor</TableCell>
-              <TableCell align="right">Descripcion</TableCell>
-              <TableCell align="right">Acciones</TableCell>
+              <TableCell 
+                align='center' 
+              >
+                Titulo
+              </TableCell>
+              <TableCell 
+                align="center"
+              >
+                  Autor
+              </TableCell>
+              <TableCell 
+                align="center"
+              >
+                Descripcion
+              </TableCell>
+              <TableCell align="center">Acciones</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -77,13 +105,17 @@ export const BooksListContainer = ({ bookList }: BooksListContainerParams) => {
                 key={row.title}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell 
+                  component="th" 
+                  scope="row"
+                  align="center"
+                >
                   {row.title}
                 </TableCell>
-                <TableCell align="right">{row.author}</TableCell>
-                <TableCell align="right">{row.description}</TableCell>
-                <TableCell align="right">
-                  <Stack direction='row' spacing={2}>
+                <TableCell align="center">{row.author}</TableCell>
+                <TableCell align="center">{row.description}</TableCell>
+                <TableCell align="center">
+                  <Stack direction='row' justifyContent='center' spacing={2}>
                     <IconButton aria-label="delete">
                       <DeleteIcon onClick={() => handleDelete(row.id!)} />
                     </IconButton>

@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { bookDeleted, fetchMeBooks } from '@/store/book';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
 
 interface DialogDeleteParams {
   id: number,
@@ -23,6 +24,9 @@ export const DialogDelete = ({id, openDialog, setOpenDialog}:DialogDeleteParams)
   
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
+
+  const { enqueueSnackbar } = useSnackbar()
+
   
   const router = useRouter();
 
@@ -37,9 +41,11 @@ export const DialogDelete = ({id, openDialog, setOpenDialog}:DialogDeleteParams)
     .then( () => {
       dispatch(fetchMeBooks())
       router.push('/')
+      enqueueSnackbar('Libro eliminado', {variant: 'success'})
     })
     .catch( (err) => {
       console.log(err)
+      enqueueSnackbar('Error al eliminar el libro', {variant: 'error'})
     })
     .finally( () => {
       setLoading(false)

@@ -1,12 +1,15 @@
 import { store } from '@/store'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
+import { SnackbarProvider } from 'notistack'
 import { Provider } from 'react-redux'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <SnackbarProvider maxSnack={3}>
+        <Component {...pageProps} />
+      </SnackbarProvider>
     </Provider>
   )
 }
